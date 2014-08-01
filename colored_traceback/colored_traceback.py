@@ -1,0 +1,59 @@
+import sys
+
+
+def add_hook(always=False, style='default', debug=False):
+    if sys.stderr.isatty() or always:
+        try:
+            import pygments
+            colorizer = Colorizer(style, debug)
+            sys.excepthook = colorizer.colorize_traceback
+        except ImportError:
+            if debug:
+                sys.stderr.write("Failed to add coloring hook; pygments not available\n")
+
+
+class Colorizer(object):
+
+    def __init__(self, style, debug=False):
+        self.style = style
+        self.debug = debug
+
+    def colorize_traceback(self, type, value, tb):
+        import traceback
+        import pygments.lexers
+        tb_text = "".join(traceback.format_exception(type, value, tb))
+        lexer = pygments.lexers.get_lexer_by_name("pytb", stripall=True)
+        tb_colored = pygments.highlight(tb_text, lexer, self.formatter)
+        sys.stderr.write(tb_colored)
+
+    @property
+    def formatter(self):
+        colors = _get_term_color_support()
+        if self.debug:
+            sys.stderr.write("Detected support for %s colors\n" % colors)
+        if colors == 256:
+            fmt_options = {'style': self.style}
+        elif self.style in {'light', 'dark'}:
+            fmt_options = {'bg': self.style}
+        else:
+            # TODO should this be 'dark' on Windows?...
+            fmt_options = {'bg': 'light'}
+        from pygments.formatters import get_formatter_by_name
+        import pygments.util
+        fmt_alias = 'terminal256' if colors == 256 else 'terminal'
+        try:
+            return get_formatter_by_name(fmt_alias, **fmt_options)
+        except pygments.util.ClassNotFound as ex:
+            if self.debug:
+                sys.stderr.write(str(ex) + "\n")
+            return get_formatter_by_name(fmt_alias)
+
+
+def _get_term_color_support():
+    try:
+        import curses
+    except ImportError:
+        # Probably Windows, which doesn't have great curses support
+        return 16
+    curses.setupterm()
+    return curses.tigetnum('colors')

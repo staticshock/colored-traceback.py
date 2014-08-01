@@ -1,0 +1,4 @@
+*.py whitespace=tab-in-indent,tabwidth=4
+Makefile whitespace=indent-with-non-tab,tabwidth=4
+
+*.py diff=python
