@@ -4,7 +4,7 @@ import sys
 def add_hook(always=False, style='default', debug=False):
     if sys.stderr.isatty() or always:
         try:
-            import pygments
+            import pygments  # flake8:noqa
             colorizer = Colorizer(style, debug)
             sys.excepthook = colorizer.colorize_traceback
         except ImportError:
