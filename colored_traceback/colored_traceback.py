@@ -24,7 +24,7 @@ class Colorizer(object):
         tb_text = "".join(traceback.format_exception(type, value, tb))
         lexer = pygments.lexers.get_lexer_by_name("pytb", stripall=True)
         tb_colored = pygments.highlight(tb_text, lexer, self.formatter)
-        sys.stderr.write(tb_colored)
+        self.stream.write(tb_colored)
 
     @property
     def formatter(self):
@@ -36,8 +36,7 @@ class Colorizer(object):
         elif self.style in {'light', 'dark'}:
             fmt_options = {'bg': self.style}
         else:
-            # TODO should this be 'dark' on Windows?...
-            fmt_options = {'bg': 'light'}
+            fmt_options = {'bg': 'dark'}
         from pygments.formatters import get_formatter_by_name
         import pygments.util
         fmt_alias = 'terminal256' if colors == 256 else 'terminal'
@@ -47,6 +46,14 @@ class Colorizer(object):
             if self.debug:
                 sys.stderr.write(str(ex) + "\n")
             return get_formatter_by_name(fmt_alias)
+
+    @property
+    def stream(self):
+        try:
+            import colorama
+            return colorama.AnsiToWin32(sys.stderr)
+        except ImportError:
+            return sys.stderr
 
 
 def _get_term_color_support():

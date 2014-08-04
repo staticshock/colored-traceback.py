@@ -11,7 +11,7 @@ if has_setuptools:
 
 setup(
     name='colored-traceback',
-    version='0.1.0',
+    version='0.2.0',
     description='Automatically color uncaught exception tracebacks',
     long_description=open("README.rst").read(),
     author='Anton Backer',
@@ -25,6 +25,9 @@ setup(
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'License :: OSI Approved :: ISC License (ISCL)',
+        'Operating System :: POSIX :: Linux',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft :: Windows',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.3',

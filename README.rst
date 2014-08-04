@@ -65,6 +65,13 @@ Or directly:
     git clone http://www.github.com/staticshock/colored-traceback.py
     python setup.py install
 
+On Windows, which has no real support for ANSI escape sequences, there's an
+additional dependency on `colorama`:
+
+.. code-block:: bash
+
+    pip install colorama
+
 Usage
 -----
 
@@ -105,9 +112,3 @@ presence of the package optional:
         import colored_traceback.auto
     except ImportError:
         pass
-
-Known Issues
-------------
-
-* Does not currently work on Windows. Pygments formats everything with ANSI
-  escape sequences, which the Windows console does not support.
