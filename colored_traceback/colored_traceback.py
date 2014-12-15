@@ -33,7 +33,7 @@ class Colorizer(object):
             sys.stderr.write("Detected support for %s colors\n" % colors)
         if colors == 256:
             fmt_options = {'style': self.style}
-        elif self.style in {'light', 'dark'}:
+        elif self.style in ('light', 'dark'):
             fmt_options = {'bg': self.style}
         else:
             fmt_options = {'bg': 'dark'}
