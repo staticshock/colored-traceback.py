@@ -2,7 +2,8 @@ import sys
 
 
 def add_hook(always=False, style='default', debug=False):
-    if sys.stderr.isatty() or always:
+    isatty = getattr(sys.stderr, 'isatty', lambda: False)
+    if always or isatty():
         try:
             import pygments  # flake8:noqa
             colorizer = Colorizer(style, debug)
