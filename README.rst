@@ -75,9 +75,15 @@ additional dependency on `colorama`:
 Usage
 -----
 
-Colored Traceback works equally well within a script as it does when imported
-directly in the interpreter REPL. Standard usage will color the output, unless
-it's being redirected to a pipe:
+Colored Traceback can be executed as a module:
+
+.. code-block:: bash
+
+    python -m colored_traceback somefile.py
+
+Colored Traceback also works well within a script or even directly in the
+interpreter REPL. Standard usage will color the output, unless it's being
+redirected to a pipe:
 
 .. code-block:: python
 

@@ -11,7 +11,7 @@ if has_setuptools:
 
 setup(
     name='colored-traceback',
-    version='0.2.2',
+    version='0.3.0',
     description='Automatically color uncaught exception tracebacks',
     long_description=open("README.rst").read(),
     author='Anton Backer',
