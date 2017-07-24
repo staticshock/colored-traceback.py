@@ -11,7 +11,7 @@ def main():
             import colored_traceback.auto
     else:
         from colored_traceback import add_hook
-        add_hook(always=args.always, debug=args.debug)
+        add_hook(always=args.always, colors=args.colors, debug=args.debug)
 
     x = object()
     x.thing()
@@ -22,6 +22,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--shortcut", action='store_true')
     parser.add_argument("--always", action='store_true')
+    parser.add_argument("--colors", action='store', type=int)
     parser.add_argument("--debug", action='store_true')
     return parser.parse_args()
 
