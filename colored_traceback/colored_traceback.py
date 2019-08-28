@@ -23,7 +23,7 @@ class Colorizer(object):
         import traceback
         import pygments.lexers
         tb_text = "".join(traceback.format_exception(type, value, tb))
-        lexer = pygments.lexers.get_lexer_by_name("pytb", stripall=True)
+        lexer = pygments.lexers.get_lexer_by_name("pytb")
         tb_colored = pygments.highlight(tb_text, lexer, self.formatter)
         self.stream.write(tb_colored)
 
