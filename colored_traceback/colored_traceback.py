@@ -29,35 +29,34 @@ if PYGMENTS:
         curses.setupterm()
         return curses.tigetnum('colors')
 
-    def _determine_formatter(self):
+    def _determine_formatter(style="default", debug=False):
         colors = _get_term_color_support()
-        if self.debug:
+        if debug:
             sys.stderr.write("Detected support for %s colors\n" % colors)
         if colors == 256:
-            fmt_options = {'style': self.style}
-        elif self.style in ('light', 'dark'):
-            fmt_options = {'bg': self.style}
+            fmt_options = {'style': style}
+        elif style in ('light', 'dark'):
+            fmt_options = {'bg': style}
         else:
             fmt_options = {'bg': 'dark'}
         fmt_alias = 'terminal256' if colors == 256 else 'terminal'
         try:
             return get_formatter_by_name(fmt_alias, **fmt_options)
         except ClassNotFound as ex:
-            if self.debug:
+            if debug:
                 sys.stderr.write(str(ex) + "\n")
             return get_formatter_by_name(fmt_alias)
 
     LEXER = get_lexer_by_name(
         "pytb" if sys.version_info.major < 3 else "py3tb"
     )
-    FORMATTER = _determine_formatter()
 
     class Colorizer(object):
         def __init__(self, style, debug=False):
             self.style = style
             self.debug = debug
             self.lexer = LEXER
-            self.formatter = FORMATTER
+            self.formatter = _determine_formatter(style, debug)
 
         def colorize_traceback(self, type, value, tb):
             tb_text = "".join(traceback.format_exception(type, value, tb))
