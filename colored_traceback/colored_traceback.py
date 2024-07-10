@@ -2,7 +2,7 @@ import sys
 import os
 
 
-def add_hook(always=False, style='default', debug=False):
+def add_hook(always=False, style='default', colors=None, debug=False):
     no_color = os.environ.get("NO_COLOR", "")   # https://no-color.org
     if no_color:
         return
@@ -10,7 +10,7 @@ def add_hook(always=False, style='default', debug=False):
     if always or isatty():
         try:
             import pygments  # flake8:noqa
-            colorizer = Colorizer(style, debug)
+            colorizer = Colorizer(style, colors, debug)
             sys.excepthook = colorizer.colorize_traceback
         except ImportError:
             if debug:
@@ -19,8 +19,9 @@ def add_hook(always=False, style='default', debug=False):
 
 class Colorizer(object):
 
-    def __init__(self, style, debug=False):
+    def __init__(self, style, colors, debug=False):
         self.style = style
+        self.colors = colors
         self.debug = debug
 
     def colorize_traceback(self, type, value, tb):
@@ -34,7 +35,7 @@ class Colorizer(object):
 
     @property
     def formatter(self):
-        colors = _get_term_color_support()
+        colors = self.colors or _get_term_color_support()
         if self.debug:
             sys.stderr.write("Detected support for %s colors\n" % colors)
         if colors == 256:
