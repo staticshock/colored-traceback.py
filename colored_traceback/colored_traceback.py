@@ -1,7 +1,11 @@
 import sys
+import os
 
 
 def add_hook(always=False, style='default', colors=None, debug=False):
+    no_color = os.environ.get("NO_COLOR", "")   # https://no-color.org
+    if no_color:
+        return
     isatty = getattr(sys.stderr, 'isatty', lambda: False)
     if always or isatty():
         try:
@@ -24,7 +28,8 @@ class Colorizer(object):
         import traceback
         import pygments.lexers
         tb_text = "".join(traceback.format_exception(type, value, tb))
-        lexer = pygments.lexers.get_lexer_by_name("pytb", stripall=True)
+        lexer_name = "pytb" if sys.version_info.major < 3 else "py3tb"
+        lexer = pygments.lexers.get_lexer_by_name(lexer_name)
         tb_colored = pygments.highlight(tb_text, lexer, self.formatter)
         self.stream.write(tb_colored)
 
