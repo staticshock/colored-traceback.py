@@ -1,7 +1,11 @@
 import sys
+import os
 
 
 def add_hook(always=False, style='default', debug=False):
+    no_color = os.environ.get("NO_COLOR", "")   # https://no-color.org
+    if no_color:
+        return
     isatty = getattr(sys.stderr, 'isatty', lambda: False)
     if always or isatty():
         try:
