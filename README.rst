@@ -63,7 +63,8 @@ Or directly:
 .. code-block:: bash
 
     git clone http://www.github.com/staticshock/colored-traceback.py
-    python setup.py install
+    cd colored-traceback.py
+    pip install .
 
 On Windows, which has no real support for ANSI escape sequences, there's an
 additional dependency on `colorama`:
