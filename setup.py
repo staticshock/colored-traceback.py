@@ -7,7 +7,7 @@ except:
 
 extra_args = {}
 if has_setuptools:
-    extra_args['install_requires'] = ['pygments']
+    extra_args['install_requires'] = ['pygments', 'colorama; os_name == "nt"']
 
 setup(
     name='colored-traceback',

@@ -66,12 +66,8 @@ Or directly:
     cd colored-traceback.py
     pip install .
 
-On Windows, which has no real support for ANSI escape sequences, there's an
-additional dependency on `colorama`:
-
-.. code-block:: bash
-
-    pip install colorama
+On Windows, which has no real support for ANSI escape sequences, this will
+also install `colorama`.
 
 Usage
 -----
