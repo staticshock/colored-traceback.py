@@ -3,7 +3,7 @@ build-backend = "setuptools.build_meta"
 requires = ["setuptools >= 61.0"]
 
 [project]
-name = "colored"
+name = "colored-traceback"
 version = "0.4.0"
 description = "Automatically color uncaught exception tracebacks"
 authors = [
