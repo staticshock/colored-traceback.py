@@ -1,3 +1,41 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["setuptools >= 36.6"]
+requires = ["setuptools >= 61.0"]
+
+[project]
+name = "colored-traceback"
+version = "0.4.1"
+description = "Automatically color uncaught exception tracebacks"
+authors = [
+    { name = "Anton Backer", email = "olegov@gmail.com" },
+]
+readme = "README.rst"
+license = { text = "ISC" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "License :: OSI Approved :: ISC License (ISCL)",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3.3",
+]
+
+dependencies = [
+    "pygments",
+    "colorama; os_name == 'nt'",
+]
+
+[project.urls]
+Source = "https://www.github.com/staticshock/colored-traceback.py"
+
+[tool.setuptools]
+packages = [
+    "colored_traceback",
+    "colored_traceback.auto",
+    "colored_traceback.always",
+]
