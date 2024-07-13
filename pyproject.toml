@@ -25,6 +25,10 @@ classifiers = [
     "Programming Language :: Python :: 3.3",
 ]
 
+dependencies = [
+    "pygments",
+]
+
 [project.urls]
 Source = "https://www.github.com/staticshock/colored-traceback.py"
 
